@@ -71,6 +71,7 @@ thuật toán cân bằng dữ liệu (Data Balancing). Trong các bài toán h�
 ```
 python DataBalancing.py
 ```
+## Đánh giá mô hình
 <table>
   <tr>
     <td align="center">
@@ -83,6 +84,8 @@ python DataBalancing.py
     </td>
   </tr>
 </table>
+
+
 
 
 

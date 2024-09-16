@@ -15,11 +15,25 @@ OWASP : https://github.com/KaitoRyouga/OWASP/tree/master
 
 
 ## Train
+
 Chuyển đổi mã nguồn thành tokens:
 ```
 php Tokenziez.php
 ```
-## Các mô hình thử nghiệm:
+Điều chỉnh tokens
+```
+python Conversion.py
+```
+Run PTIT
+```
+python trainLSTM.py
+```
+Đánh giá mô hình
+
+```
+python confusion_matrix.py
+```
+## Các mô hình khác thử nghiệm:
 BiLSTM (Bidirectional Long Short-Term Memory) là một biến thể của mô hình LSTM, trong đó mô hình sẽ được huấn luyện theo cả hai hướng,
 ```
 python BiLSTM.py
@@ -40,3 +54,5 @@ thuật toán cân bằng dữ liệu (Data Balancing). Trong các bài toán h�
 ```
 python DataBalancing.py
 ```
+![image](https://github.com/user-attachments/assets/866e34f3-9e1c-461f-9531-3c66b5755ce2)
+

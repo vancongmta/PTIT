@@ -69,5 +69,6 @@ thuật toán cân bằng dữ liệu (Data Balancing). Trong các bài toán h�
 ```
 python DataBalancing.py
 ```
-![image](https://github.com/user-attachments/assets/866e34f3-9e1c-461f-9531-3c66b5755ce2)
+<img src="https://github.com/user-attachments/assets/866e34f3-9e1c-461f-9531-3c66b5755ce2" width="300"/>
+
 

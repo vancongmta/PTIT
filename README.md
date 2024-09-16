@@ -21,6 +21,21 @@ Chuyển đổi mã nguồn thành tokens:
 php Tokenziez.php
 ```
 Điều chỉnh tokens
+| Duplicate Tokens                                        | Token Combinations                         |
+|---------------------------------------------------------|--------------------------------------------|
+| T_UNDEFINED_VAR , T_UNDEFINED_VAR , T_UNDEFINED_VAR , T_UNDEFINED_VAR | 4_T_UNDEFINED_VAR                         |
+| T_ECHO T_CONSTANT_ENCAPSED_STRING ; T_ECHO T_CONSTANT_ENCAPSED_STRING ; | [ 3_T_ECHO T_CONSTANT_ENCAPSED_STRING ; ] |
+| T_ECHO T_CONSTANT_ENCAPSED_STRING ; T_ECHO T_CONSTANT_ENCAPSED_STRING ; T_ECHO T_CONSTANT_ENCAPSED_STRING ; | [ 3_T_ECHO T_CONSTANT_ENCAPSED_STRING ; ] |
+| T_CONSTANT_ENCAPSED_STRING , T_CONSTANT_ENCAPSED_STRING | 2_T_CONSTANT_ENCAPSED_STRING              |
+| [ T_CONSTANT_ENCAPSED_STRING  . ” T_CONSTANT_ENCAPSED_STRING ]  | [ 2_T_CONSTANT_ENCAPSED_STRING .’’ ]      |
+| T_CONSTANT_ENCAPSED_STRING , T_CONSTANT_ENCAPSED_STRING , T_CONSTANT_ENCAPSED_STRING , | 3_T_CONSTANT_ENCAPSED_STRING             |
+| T_IGNORE , T_IGNORE , T_IGNORE ,                       | 3_T_IGNORE                                |
+| T_ASSIGNMENT , T_ASSIGNMENT , T_ASSIGNMENT ,            | 3_T_ASSIGNMENT                            |
+| T_COMPARISON , T_COMPARISON , T_COMPARISON ,            | 3_T_COMPARISON                            |
+| T_INCLUDES , T_INCLUDES                                | 2_T_INCLUDES                              |
+| T_ECHO . ’’ T_ECHO . ’’ T_ECHO . ’’                    | 3_T_ECHO . ’’                             |
+| T_INPUT  ;  T_INPUT  ; T_INPUT ;                        | 3_T_INPUT                                 |
+
 ```
 python Conversion.py
 ```

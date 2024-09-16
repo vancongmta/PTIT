@@ -41,7 +41,7 @@ php Tokenziez.php
 ```
 python Conversion.py
 ```
-Run PTIT
+Run PTIT (Mô hình đề xuất LSTM)
 ```
 python trainLSTM.py
 ```

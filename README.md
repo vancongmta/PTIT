@@ -69,16 +69,19 @@ thuật toán cân bằng dữ liệu (Data Balancing). Trong các bài toán h�
 ```
 python DataBalancing.py
 ```
-<div style="display: flex; justify-content: space-between;">
-  <div>
-    <img src="https://github.com/user-attachments/assets/866e34f3-9e1c-461f-9531-3c66b5755ce2" width="300"/>
-    <p style="text-align: center;">Ma trận chuẩn hóa của TAP</p>
-  </div>
-  <div>
-    <img src="https://github.com/user-attachments/assets/b98f075e-29fa-4682-ba8f-24d2743db476" width="300"/>
-    <p style="text-align: center;">Ma trận chuẩn hóa của PTIT</p>
-  </div>
-</div>
+<table>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/866e34f3-9e1c-461f-9531-3c66b5755ce2" width="300"/>
+      <p>Ma trận chuẩn hóa của TAP</p>
+    </td>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/b98f075e-29fa-4682-ba8f-24d2743db476" width="300"/>
+      <p>Ma trận chuẩn hóa của PTIT</p>
+    </td>
+  </tr>
+</table>
+
 
 
 

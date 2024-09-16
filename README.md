@@ -1,7 +1,7 @@
 # PTIT
 PTIT- Phát hiện lỗ hổng trong source-code PHP
 ## Giới thiệu 
-PTIT là một mô hình được phát triển để phát hiện lỗ hổng trong mã nguồn PHP, với mục tiêu nâng cao hiệu quả phát hiện các vấn đề bảo mật trong ứng dụng web. Mô hình sử dụng nhiều phương pháp hiện đại để phân tích và phát hiện các loại lỗ hổng phổ biến trong mã nguồn PHP như SQL Injection (SQLi) và Cross-Site Scripting (XSS).
+PTIT là một mô hình được phát triển để phát hiện lỗ hổng trong mã nguồn PHP, với mục tiêu nâng cao hiệu quả phát hiện các vấn đề bảo mật trong ứng dụng web. Mô hình sử dụng  phương pháp token kết hợp với deep learning, phân tích và phát hiện các loại lỗ hổng phổ biến trong mã nguồn PHP như SQL Injection (SQLi) và Cross-Site Scripting (XSS). Trong mô hình này chúng tôi đã cải thiện phương pháp sử lý vector trong quá trình chuyển đổi để giảm thời gian huấn luyện nhưng vẫn bảo đảm hiệu xuất.
 ## Dataset 
 103	PHP Vulnerability Test Suite; 114	PHP test suite - XSS, SQLi 1.0.0:
 
@@ -43,9 +43,12 @@ python Conversion.py
 ```
 
 <img src="https://github.com/user-attachments/assets/b37f41a4-da13-48b0-b25b-3bbd5499fab4" width="300"/>
+<img src="https://github.com/user-attachments/assets/df9cdf31-c85d-4de6-9827-dc9943539ba9" width="300"/>
+
+
 Run PTIT
 Mô hình tích hợp 2 lớp Conv1D và MaxPooling1D:
-Chúng tôi kết hợp mô hình với 2 lớp Conv1D và MaxPooling1D trong quá trình xử lý vector nhằm tối ưu hóa việc trích xuất đặc trưng của chuỗi đầu vào. Lớp Conv1D giúp phát hiện các mẫu cục bộ trong chuỗi, trong khi lớp MaxPooling1D giảm độ phức tạp của mô hình, giảm thiểu overfitting và tăng tính tổng quát của mô hình trên dữ liệu chưa biết.
+Chúng tôi kết hợp mô hình với 2 lớp Conv1D và MaxPooling1D trong quá trình xử lý vector nhằm tối ưu hóa việc trích xuất đặc trưng của chuỗi đầu vào. Lớp Conv1D giúp phát hiện các mẫu cục bộ trong chuỗi, trong khi lớp MaxPooling1D giảm độ phức tạp của mô hình, giảm thiểu overfitting và tăng tính tổng quát của mô hình trên dữ liệu chưa biết.Lớp Conv1D giảm số lượng tham số cần học bằng cách tập trung vào các đặc trưng cục bộ, trong khi lớp MaxPooling1D giảm kích thước đầu ra của lớp Conv1D, giúp giảm số lượng tính toán trong các bước sau. Nhờ đó, mô hình sẽ nhanh hơn trong quá trình huấn luyện mà không làm giảm đáng kể hiệu suất.
 ```
 python trainLSTM.py
 ```

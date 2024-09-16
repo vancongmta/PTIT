@@ -41,12 +41,13 @@ php Tokenziez.php
 ```
 python Conversion.py
 ```
-
+Run PTIT 
+ 
 <img src="https://github.com/user-attachments/assets/b37f41a4-da13-48b0-b25b-3bbd5499fab4" width="300"/>
 <img src="https://github.com/user-attachments/assets/df9cdf31-c85d-4de6-9827-dc9943539ba9" width="300"/>
 
 
-Run PTIT
+
 Mô hình tích hợp 2 lớp Conv1D và MaxPooling1D:
 Chúng tôi kết hợp mô hình với 2 lớp Conv1D và MaxPooling1D trong quá trình xử lý vector nhằm tối ưu hóa việc trích xuất đặc trưng của chuỗi đầu vào. Lớp Conv1D giúp phát hiện các mẫu cục bộ trong chuỗi, trong khi lớp MaxPooling1D giảm độ phức tạp của mô hình, giảm thiểu overfitting và tăng tính tổng quát của mô hình trên dữ liệu chưa biết.Lớp Conv1D giảm số lượng tham số cần học bằng cách tập trung vào các đặc trưng cục bộ, trong khi lớp MaxPooling1D giảm kích thước đầu ra của lớp Conv1D, giúp giảm số lượng tính toán trong các bước sau. Nhờ đó, mô hình sẽ nhanh hơn trong quá trình huấn luyện mà không làm giảm đáng kể hiệu suất.
 ```

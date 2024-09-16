@@ -1,7 +1,7 @@
 # PTIT
 PTIT- Phát hiện lỗ hổng trong source-code PHP
 ## Giới thiệu 
-Mô hình phát hiện lỗ hổng trong source-code PHP 
+PTIT là một mô hình được phát triển để phát hiện lỗ hổng trong mã nguồn PHP, với mục tiêu nâng cao hiệu quả phát hiện các vấn đề bảo mật trong ứng dụng web. Mô hình sử dụng nhiều phương pháp hiện đại để phân tích và phát hiện các loại lỗ hổng phổ biến trong mã nguồn PHP như SQL Injection (SQLi) và Cross-Site Scripting (XSS).
 ## Dataset 
 103	PHP Vulnerability Test Suite; 114	PHP test suite - XSS, SQLi 1.0.0:
 

@@ -40,27 +40,49 @@ input_length = 350
 cpu_count = multiprocessing.cpu_count()
 
 labels = ["safe", "CWE-78", "CWE-79", "CWE-89", "CWE-90", "CWE-91", "CWE-95", "CWE-98", "CWE-601", "CWE-862"]
+def combine(safe_file, unsafe_file, unsafe_y_file):
+    # Đọc dữ liệu từ các file
+    with open(safe_file, 'r', encoding='utf-8') as f:
+        safe_data = f.readlines()
 
-def combine(safeFile, unsafeFile, unsafeYFile):
-    global labels
-    with open(safeFile, 'r') as f:
-        safe_tokens = f.readlines()
-    with open(unsafeFile, 'r') as f:
-        unsafe_tokens = f.readlines()
-    combined = np.concatenate((unsafe_tokens, safe_tokens))
-    
-    with open(unsafeYFile, 'r') as f:
-        unsafe_labels = f.readlines()
+    with open(unsafe_file, 'r', encoding='utf-8') as f:
+        unsafe_data = f.readlines()
 
-    def tran_label(label):
-        y_oh = np.zeros(10)
-        y_oh[labels.index(label)] = 1
-        return y_oh
+    with open(unsafe_y_file, 'r', encoding='utf-8') as f:
+        unsafe_y = f.readlines()
 
-    y = np.concatenate((np.array([tran_label(i.strip()) for i in unsafe_labels]), 
-                        np.array([tran_label("safe") for i in safe_tokens])))
-    return combined, y
+    # Chuyển đổi các nhãn từ file unsafe_y
+    unsafe_y = np.array([int(y.strip()) for y in unsafe_y])
 
+    # Phân loại dữ liệu unsafe dựa trên nhãn
+    labels = np.unique(unsafe_y)
+    data_by_class = {label: [] for label in labels}
+
+    for data, label in zip(unsafe_data, unsafe_y):
+        data_by_class[label].append(data)
+
+    # Tìm nhãn có số lượng lớn nhất ngoại trừ nhãn 'safe'
+    max_count = max([len(data) for label, data in data_by_class.items() if label != 0])
+
+    combined_x = list(safe_data)
+    combined_y = [0] * len(safe_data)  # Nhãn 'safe' là 0
+
+    # Cân bằng các nhãn khác trừ nhãn 'safe'
+    for label, class_data in data_by_class.items():
+        if label != 0:  # Nhãn 'safe' là 0, nên bỏ qua
+            if len(class_data) < max_count:
+                # Nếu số lượng nhỏ hơn, lặp lại dữ liệu
+                indices = np.random.choice(len(class_data), max_count, replace=True)
+                balanced_data = [class_data[i] for i in indices]
+            else:
+                # Nếu đủ số lượng, không cần thêm
+                balanced_data = class_data
+
+            # Thêm dữ liệu đã cân bằng vào tập combined
+            combined_x.extend(balanced_data)
+            combined_y.extend([label] * len(balanced_data))
+
+    return combined_x, combined_y
 def create_dictionaries(model=None, combined=None):
     if (combined is not None) and (model is not None):
         gensim_dict = Dictionary()
@@ -114,29 +136,38 @@ def get_data(index_dict, word_vectors, combined, y):
     return n_symbols, embedding_weights, x_train, y_train, x_validate, y_validate
 
 def train_lstm(n_symbols, embedding_weights, x_train, y_train, x_validate, y_validate):
-    print('Defining a Simple Keras Model...')
+    print('Defining an Enhanced Keras Model...')
     model = Sequential()
-
+    
+    # Lớp Embedding
     model.add(Embedding(output_dim=vocab_dim,
                         input_dim=n_symbols,
                         mask_zero=True,
                         weights=[embedding_weights],
                         input_length=input_length))
 
-    model.add(LSTM(128))
-    model.add(Dropout(0.5))
+    # Lớp Conv1D và MaxPooling1D để cải thiện khả năng trích xuất đặc trưng
+    model.add(Conv1D(filters=128, kernel_size=5, activation='relu'))
+    model.add(MaxPool1D(pool_size=4))
+    
+    # LSTM thông thường
+    model.add(LSTM(128, return_sequences=False))
+    
+    # Thay đổi Dropout
+    model.add(Dropout(0.4))
+    
+    # Lớp Dense đầu ra với softmax
     model.add(Dense(10, activation='softmax'))
 
     print('Compiling the Model...')
-    adam = Adam(learning_rate=0.0001)  # Cập nhật tên tham số
+    adam = Adam(learning_rate=0.0001)
     model.compile(loss='categorical_crossentropy',
                   optimizer=adam,
                   metrics=['accuracy'])
     model.summary()
     print("Training...")
 
-    # Thay đổi cách sử dụng class_weight
-    class_weight = {i: 1 for i in range(10)}  # Tạo class_weight với trọng số bằng 1 cho tất cả các lớp
+    class_weight = {i: 1 for i in range(10)}
     
     model.fit(x_train, y_train, batch_size=batch_size, epochs=n_epoch, verbose=2, shuffle=True,
               class_weight=class_weight, validation_data=(x_validate, y_validate))
@@ -152,9 +183,9 @@ def train_lstm(n_symbols, embedding_weights, x_train, y_train, x_validate, y_val
 
 def train():
     print('Token hóa...')
-    safeFile = './safe_tokens1.txt'
-    unsafeFile = './unsafe_tokens1.txt'
-    unsafeYFile = './unsafe_y12.txt'
+    safeFile = './safenew.txt'
+    unsafeFile = './unsafenew.txt'
+    unsafeYFile = './unsafe_y.txt'
     combined_x, combined_y = combine(safeFile, unsafeFile, unsafeYFile)
 
     x_train_validate, x_test, y_train_validate, y_test = train_test_split(combined_x, combined_y, test_size=0.2)

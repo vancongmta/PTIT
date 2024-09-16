@@ -21,20 +21,74 @@ Chuyển đổi mã nguồn thành tokens:
 php Tokenziez.php
 ```
 Điều chỉnh tokens
-| Duplicate Tokens                                        | Token Combinations                         |
-|---------------------------------------------------------|--------------------------------------------|
-| T_UNDEFINED_VAR , T_UNDEFINED_VAR , T_UNDEFINED_VAR , T_UNDEFINED_VAR | 4_T_UNDEFINED_VAR                         |
-| T_ECHO T_CONSTANT_ENCAPSED_STRING ; T_ECHO T_CONSTANT_ENCAPSED_STRING ; | [ 3_T_ECHO T_CONSTANT_ENCAPSED_STRING ; ] |
-| T_ECHO T_CONSTANT_ENCAPSED_STRING ; T_ECHO T_CONSTANT_ENCAPSED_STRING ; T_ECHO T_CONSTANT_ENCAPSED_STRING ; | [ 3_T_ECHO T_CONSTANT_ENCAPSED_STRING ; ] |
-| T_CONSTANT_ENCAPSED_STRING , T_CONSTANT_ENCAPSED_STRING | 2_T_CONSTANT_ENCAPSED_STRING              |
-| [ T_CONSTANT_ENCAPSED_STRING  . ” T_CONSTANT_ENCAPSED_STRING ]  | [ 2_T_CONSTANT_ENCAPSED_STRING .’’ ]      |
-| T_CONSTANT_ENCAPSED_STRING , T_CONSTANT_ENCAPSED_STRING , T_CONSTANT_ENCAPSED_STRING , | 3_T_CONSTANT_ENCAPSED_STRING             |
-| T_IGNORE , T_IGNORE , T_IGNORE ,                       | 3_T_IGNORE                                |
-| T_ASSIGNMENT , T_ASSIGNMENT , T_ASSIGNMENT ,            | 3_T_ASSIGNMENT                            |
-| T_COMPARISON , T_COMPARISON , T_COMPARISON ,            | 3_T_COMPARISON                            |
-| T_INCLUDES , T_INCLUDES                                | 2_T_INCLUDES                              |
-| T_ECHO . ’’ T_ECHO . ’’ T_ECHO . ’’                    | 3_T_ECHO . ’’                             |
-| T_INPUT  ;  T_INPUT  ; T_INPUT ;                        | 3_T_INPUT                                 |
+<style>
+  table {
+    font-size: 12px;
+    width: 80%;
+    border-collapse: collapse;
+  }
+  table, th, td {
+    border: 1px solid black;
+  }
+</style>
+
+<table>
+  <thead>
+    <tr>
+      <th>Duplicate Tokens</th>
+      <th>Token Combinations</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2">T_UNDEFINED_VAR , T_UNDEFINED_VAR , T_UNDEFINED_VAR , T_UNDEFINED_VAR</td>
+      <td>4_T_UNDEFINED_VAR</td>
+    </tr>
+    <tr>
+      <td rowspan="2">T_ECHO T_CONSTANT_ENCAPSED_STRING ;</td>
+      <td colspan="2">[ 3_T_ECHO T_CONSTANT_ENCAPSED_STRING ; ]</td>
+    </tr>
+    <tr>
+      <td colspan="2">T_ECHO T_CONSTANT_ENCAPSED_STRING ; T_CONSTANT_ENCAPSED_STRING ;</td>
+    </tr>
+    <tr>
+      <td>T_CONSTANT_ENCAPSED_STRING , T_CONSTANT_ENCAPSED_STRING</td>
+      <td colspan="2">2_T_CONSTANT_ENCAPSED_STRING</td>
+    </tr>
+    <tr>
+      <td>[ T_CONSTANT_ENCAPSED_STRING . ” T_CONSTANT_ENCAPSED_STRING ]</td>
+      <td colspan="2">[ 2_T_CONSTANT_ENCAPSED_STRING .’’ ]</td>
+    </tr>
+    <tr>
+      <td colspan="2">T_CONSTANT_ENCAPSED_STRING , T_CONSTANT_ENCAPSED_STRING , T_CONSTANT_ENCAPSED_STRING ,</td>
+      <td>3_T_CONSTANT_ENCAPSED_STRING</td>
+    </tr>
+    <tr>
+      <td>T_IGNORE , T_IGNORE , T_IGNORE ,</td>
+      <td>3_T_IGNORE</td>
+    </tr>
+    <tr>
+      <td>T_ASSIGNMENT , T_ASSIGNMENT , T_ASSIGNMENT ,</td>
+      <td>3_T_ASSIGNMENT</td>
+    </tr>
+    <tr>
+      <td>T_COMPARISON , T_COMPARISON , T_COMPARISON ,</td>
+      <td>3_T_COMPARISON</td>
+    </tr>
+    <tr>
+      <td>T_INCLUDES , T_INCLUDES</td>
+      <td>2_T_INCLUDES</td>
+    </tr>
+    <tr>
+      <td>T_ECHO . ’’ T_ECHO . ’’ T_ECHO . ’’</td>
+      <td>3_T_ECHO . ’’</td>
+    </tr>
+    <tr>
+      <td>T_INPUT ; T_INPUT ; T_INPUT ;</td>
+      <td>3_T_INPUT</td>
+    </tr>
+  </tbody>
+</table>
 
 
 
